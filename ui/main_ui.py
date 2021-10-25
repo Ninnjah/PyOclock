@@ -14,26 +14,292 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 286)
-        MainWindow.setStyleSheet("#LCD {\n"
-"    background-color: black;\n"
+        MainWindow.resize(780, 450)
+        MainWindow.setMinimumSize(QtCore.QSize(780, 380))
+        MainWindow.setMaximumSize(QtCore.QSize(780, 450))
+        MainWindow.setStyleSheet("#centralwidget{\n"
+"    background-color: #082032;\n"
+"}\n"
+"\n"
+".QLabel {\n"
+"    color: #FF4C29;\n"
+"}\n"
+"\n"
+".QPushButton {\n"
+"    background-color: #334756;\n"
+"    color: #FF4C29;\n"
+"    border: none;\n"
+"}\n"
+"\n"
+".QTextEdit {\n"
+"    background-color: #334756;\n"
+"    color: #FF4C29;\n"
+"}\n"
+"\n"
+"QScrollBar:vertical\n"
+"{\n"
+"    background-color: #334756;\n"
+"    color: #FF4C29;\n"
+"    border: none;\n"
+"}\n"
+"\n"
+".QLCDNumber {\n"
+"    background-color: #000;\n"
+"    color: #FF4C29;\n"
+"    border: none;\n"
+"    margin: 0;\n"
+"}\n"
+"\n"
+"/*Настройка календаря*/\n"
+"QCalendarWidget QMenu{\n"
+"    background-color: #334756;\n"
+"    color: #FF4C29;\n"
+"}\n"
+"QCalendarWidget QToolButton {\n"
+"    background-color: #334756;\n"
+"    color: #FF4C29;\n"
+"}\n"
+"QCalendarWidget QWidget#qt_calendar_navigationbar {\n"
+"    background-color: #334756; \n"
+"}\n"
+"QCalendarWidget QAbstractItemView { \n"
+"    selection-background-color: #334756;\n"
+"    selection-color: #FF4C29;\n"
+"}\n"
+"QCalendarWidget QAbstractItemView:disabled { \n"
+"    color: #334756; \n"
+"}\n"
+".QCalendarWidget QTableView {\n"
+"    background-color: #2C394B;\n"
+"    color: #FF4C29;\n"
+"}\n"
+"\n"
+"/*Настройка прогресс баров*/\n"
+".QProgressBar {\n"
+"    background-color: #334756;\n"
+"    border: none;\n"
+"}\n"
+".QProgressBar::chunk {\n"
+"    background-color: #FF4C29;\n"
+"}\n"
+"#timer_progress {\n"
+"    background-color: #FF4C29;\n"
+"}\n"
+"#timer_progress::chunk {\n"
+"    background-color: #334756;\n"
+"}\n"
+"#timer_progress_2::chunk {\n"
+"    background-color: #FF4C29;\n"
+"    width: 10px; \n"
+"    margin: 0.5px;\n"
 "}")
         MainWindow.setAnimated(True)
         MainWindow.setTabShape(QtWidgets.QTabWidget.Rounded)
         MainWindow.setDockOptions(QtWidgets.QMainWindow.AllowTabbedDocks|QtWidgets.QMainWindow.AnimatedDocks|QtWidgets.QMainWindow.VerticalTabs)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.verticalLayout_4 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_4.setObjectName("verticalLayout_4")
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setMinimumSize(QtCore.QSize(171, 31))
+        font = QtGui.QFont()
+        font.setFamily("Consolas")
+        font.setPointSize(14)
+        self.label.setFont(font)
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setObjectName("label")
+        self.verticalLayout_4.addWidget(self.label)
+        self.LCD_stopwatch = QtWidgets.QLCDNumber(self.centralwidget)
+        self.LCD_stopwatch.setMinimumSize(QtCore.QSize(171, 51))
+        self.LCD_stopwatch.setAutoFillBackground(False)
+        self.LCD_stopwatch.setLineWidth(1)
+        self.LCD_stopwatch.setSmallDecimalPoint(True)
+        self.LCD_stopwatch.setDigitCount(8)
+        self.LCD_stopwatch.setMode(QtWidgets.QLCDNumber.Dec)
+        self.LCD_stopwatch.setSegmentStyle(QtWidgets.QLCDNumber.Flat)
+        self.LCD_stopwatch.setProperty("value", 0.0)
+        self.LCD_stopwatch.setProperty("intValue", 0)
+        self.LCD_stopwatch.setObjectName("LCD_stopwatch")
+        self.verticalLayout_4.addWidget(self.LCD_stopwatch)
+        self.button_stopwatch = QtWidgets.QPushButton(self.centralwidget)
+        self.button_stopwatch.setMinimumSize(QtCore.QSize(171, 21))
+        self.button_stopwatch.setObjectName("button_stopwatch")
+        self.verticalLayout_4.addWidget(self.button_stopwatch)
+        self.stopwatch_stat = QtWidgets.QTextEdit(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily("Consolas")
+        font.setPointSize(10)
+        self.stopwatch_stat.setFont(font)
+        self.stopwatch_stat.setReadOnly(True)
+        self.stopwatch_stat.setCursorWidth(0)
+        self.stopwatch_stat.setObjectName("stopwatch_stat")
+        self.verticalLayout_4.addWidget(self.stopwatch_stat)
+        self.button_stat_reset = QtWidgets.QPushButton(self.centralwidget)
+        self.button_stat_reset.setMinimumSize(QtCore.QSize(171, 21))
+        self.button_stat_reset.setObjectName("button_stat_reset")
+        self.verticalLayout_4.addWidget(self.button_stat_reset)
+        self.horizontalLayout.addLayout(self.verticalLayout_4)
+        self.verticalLayout_5 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_5.setObjectName("verticalLayout_5")
         self.LCD = QtWidgets.QLCDNumber(self.centralwidget)
-        self.LCD.setGeometry(QtCore.QRect(160, 20, 481, 111))
+        self.LCD.setMinimumSize(QtCore.QSize(381, 121))
         self.LCD.setAutoFillBackground(False)
         self.LCD.setLineWidth(1)
         self.LCD.setSmallDecimalPoint(True)
         self.LCD.setDigitCount(5)
         self.LCD.setMode(QtWidgets.QLCDNumber.Dec)
         self.LCD.setSegmentStyle(QtWidgets.QLCDNumber.Flat)
-        self.LCD.setProperty("value", 1600.0)
-        self.LCD.setProperty("intValue", 1600)
+        self.LCD.setProperty("value", 0.0)
+        self.LCD.setProperty("intValue", 0)
         self.LCD.setObjectName("LCD")
+        self.verticalLayout_5.addWidget(self.LCD)
+        self.calendarWidget = QtWidgets.QCalendarWidget(self.centralwidget)
+        self.calendarWidget.setMinimumSize(QtCore.QSize(381, 221))
+        font = QtGui.QFont()
+        font.setFamily("Consolas")
+        self.calendarWidget.setFont(font)
+        self.calendarWidget.setGridVisible(False)
+        self.calendarWidget.setSelectionMode(QtWidgets.QCalendarWidget.NoSelection)
+        self.calendarWidget.setHorizontalHeaderFormat(QtWidgets.QCalendarWidget.NoHorizontalHeader)
+        self.calendarWidget.setVerticalHeaderFormat(QtWidgets.QCalendarWidget.NoVerticalHeader)
+        self.calendarWidget.setNavigationBarVisible(True)
+        self.calendarWidget.setDateEditEnabled(False)
+        self.calendarWidget.setObjectName("calendarWidget")
+        self.verticalLayout_5.addWidget(self.calendarWidget)
+        self.horizontalLayout.addLayout(self.verticalLayout_5)
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.label_2 = QtWidgets.QLabel(self.centralwidget)
+        self.label_2.setMinimumSize(QtCore.QSize(171, 31))
+        font = QtGui.QFont()
+        font.setFamily("Consolas")
+        font.setPointSize(14)
+        self.label_2.setFont(font)
+        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_2.setObjectName("label_2")
+        self.verticalLayout_3.addWidget(self.label_2)
+        self.gridLayout = QtWidgets.QGridLayout()
+        self.gridLayout.setObjectName("gridLayout")
+        self.add_10min = QtWidgets.QPushButton(self.centralwidget)
+        self.add_10min.setObjectName("add_10min")
+        self.gridLayout.addWidget(self.add_10min, 0, 0, 1, 1)
+        self.add_min = QtWidgets.QPushButton(self.centralwidget)
+        self.add_min.setObjectName("add_min")
+        self.gridLayout.addWidget(self.add_min, 0, 1, 1, 1)
+        self.add_10sec = QtWidgets.QPushButton(self.centralwidget)
+        self.add_10sec.setObjectName("add_10sec")
+        self.gridLayout.addWidget(self.add_10sec, 0, 2, 1, 1)
+        self.add_sec = QtWidgets.QPushButton(self.centralwidget)
+        self.add_sec.setObjectName("add_sec")
+        self.gridLayout.addWidget(self.add_sec, 0, 3, 1, 1)
+        self.LCD_timer = QtWidgets.QLCDNumber(self.centralwidget)
+        self.LCD_timer.setMinimumSize(QtCore.QSize(171, 61))
+        self.LCD_timer.setAutoFillBackground(False)
+        self.LCD_timer.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.LCD_timer.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.LCD_timer.setLineWidth(0)
+        self.LCD_timer.setSmallDecimalPoint(True)
+        self.LCD_timer.setDigitCount(5)
+        self.LCD_timer.setMode(QtWidgets.QLCDNumber.Dec)
+        self.LCD_timer.setSegmentStyle(QtWidgets.QLCDNumber.Flat)
+        self.LCD_timer.setProperty("value", 0.0)
+        self.LCD_timer.setProperty("intValue", 0)
+        self.LCD_timer.setObjectName("LCD_timer")
+        self.gridLayout.addWidget(self.LCD_timer, 1, 0, 1, 4)
+        self.dec_10min = QtWidgets.QPushButton(self.centralwidget)
+        self.dec_10min.setObjectName("dec_10min")
+        self.gridLayout.addWidget(self.dec_10min, 2, 0, 1, 1)
+        self.dec_min = QtWidgets.QPushButton(self.centralwidget)
+        self.dec_min.setObjectName("dec_min")
+        self.gridLayout.addWidget(self.dec_min, 2, 1, 1, 1)
+        self.dec_10sec = QtWidgets.QPushButton(self.centralwidget)
+        self.dec_10sec.setObjectName("dec_10sec")
+        self.gridLayout.addWidget(self.dec_10sec, 2, 2, 1, 1)
+        self.dec_sec = QtWidgets.QPushButton(self.centralwidget)
+        self.dec_sec.setObjectName("dec_sec")
+        self.gridLayout.addWidget(self.dec_sec, 2, 3, 1, 1)
+        self.verticalLayout_3.addLayout(self.gridLayout)
+        self.button_timer = QtWidgets.QPushButton(self.centralwidget)
+        self.button_timer.setMinimumSize(QtCore.QSize(171, 21))
+        self.button_timer.setObjectName("button_timer")
+        self.verticalLayout_3.addWidget(self.button_timer)
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.gridLayout_2 = QtWidgets.QGridLayout()
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.timer_progress_3 = QtWidgets.QProgressBar(self.centralwidget)
+        self.timer_progress_3.setMinimumSize(QtCore.QSize(71, 41))
+        self.timer_progress_3.setMaximum(100)
+        self.timer_progress_3.setProperty("value", 24)
+        self.timer_progress_3.setTextVisible(False)
+        self.timer_progress_3.setOrientation(QtCore.Qt.Vertical)
+        self.timer_progress_3.setInvertedAppearance(True)
+        self.timer_progress_3.setTextDirection(QtWidgets.QProgressBar.TopToBottom)
+        self.timer_progress_3.setFormat("")
+        self.timer_progress_3.setObjectName("timer_progress_3")
+        self.gridLayout_2.addWidget(self.timer_progress_3, 0, 0, 1, 1)
+        self.timer_progress_6 = QtWidgets.QProgressBar(self.centralwidget)
+        self.timer_progress_6.setMinimumSize(QtCore.QSize(71, 41))
+        self.timer_progress_6.setMaximum(100)
+        self.timer_progress_6.setProperty("value", 24)
+        self.timer_progress_6.setTextVisible(False)
+        self.timer_progress_6.setOrientation(QtCore.Qt.Vertical)
+        self.timer_progress_6.setInvertedAppearance(False)
+        self.timer_progress_6.setTextDirection(QtWidgets.QProgressBar.TopToBottom)
+        self.timer_progress_6.setFormat("")
+        self.timer_progress_6.setObjectName("timer_progress_6")
+        self.gridLayout_2.addWidget(self.timer_progress_6, 0, 1, 1, 1)
+        self.timer_progress_4 = QtWidgets.QProgressBar(self.centralwidget)
+        self.timer_progress_4.setMinimumSize(QtCore.QSize(71, 41))
+        self.timer_progress_4.setMaximum(100)
+        self.timer_progress_4.setProperty("value", 24)
+        self.timer_progress_4.setTextVisible(False)
+        self.timer_progress_4.setOrientation(QtCore.Qt.Vertical)
+        self.timer_progress_4.setInvertedAppearance(False)
+        self.timer_progress_4.setTextDirection(QtWidgets.QProgressBar.TopToBottom)
+        self.timer_progress_4.setFormat("")
+        self.timer_progress_4.setObjectName("timer_progress_4")
+        self.gridLayout_2.addWidget(self.timer_progress_4, 1, 0, 1, 1)
+        self.timer_progress_5 = QtWidgets.QProgressBar(self.centralwidget)
+        self.timer_progress_5.setMinimumSize(QtCore.QSize(71, 41))
+        self.timer_progress_5.setMaximum(100)
+        self.timer_progress_5.setProperty("value", 24)
+        self.timer_progress_5.setTextVisible(False)
+        self.timer_progress_5.setOrientation(QtCore.Qt.Vertical)
+        self.timer_progress_5.setInvertedAppearance(True)
+        self.timer_progress_5.setTextDirection(QtWidgets.QProgressBar.TopToBottom)
+        self.timer_progress_5.setFormat("")
+        self.timer_progress_5.setObjectName("timer_progress_5")
+        self.gridLayout_2.addWidget(self.timer_progress_5, 1, 1, 1, 1)
+        self.verticalLayout_2.addLayout(self.gridLayout_2)
+        self.verticalLayout = QtWidgets.QVBoxLayout()
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.timer_progress = QtWidgets.QProgressBar(self.centralwidget)
+        self.timer_progress.setMinimumSize(QtCore.QSize(171, 51))
+        self.timer_progress.setMaximum(100)
+        self.timer_progress.setProperty("value", 24)
+        self.timer_progress.setTextVisible(False)
+        self.timer_progress.setOrientation(QtCore.Qt.Horizontal)
+        self.timer_progress.setInvertedAppearance(True)
+        self.timer_progress.setTextDirection(QtWidgets.QProgressBar.TopToBottom)
+        self.timer_progress.setFormat("")
+        self.timer_progress.setObjectName("timer_progress")
+        self.verticalLayout.addWidget(self.timer_progress)
+        self.timer_progress_2 = QtWidgets.QProgressBar(self.centralwidget)
+        self.timer_progress_2.setMinimumSize(QtCore.QSize(171, 31))
+        self.timer_progress_2.setMaximum(100)
+        self.timer_progress_2.setProperty("value", 24)
+        self.timer_progress_2.setTextVisible(False)
+        self.timer_progress_2.setInvertedAppearance(True)
+        self.timer_progress_2.setTextDirection(QtWidgets.QProgressBar.TopToBottom)
+        self.timer_progress_2.setFormat("")
+        self.timer_progress_2.setObjectName("timer_progress_2")
+        self.verticalLayout.addWidget(self.timer_progress_2)
+        self.verticalLayout_2.addLayout(self.verticalLayout)
+        self.verticalLayout_3.addLayout(self.verticalLayout_2)
+        self.horizontalLayout.addLayout(self.verticalLayout_3)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -42,3 +308,21 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.label.setText(_translate("MainWindow", "Секундомер"))
+        self.button_stopwatch.setText(_translate("MainWindow", "Старт"))
+        self.stopwatch_stat.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Consolas\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+        self.button_stat_reset.setText(_translate("MainWindow", "Сброс"))
+        self.label_2.setText(_translate("MainWindow", "Таймер"))
+        self.add_10min.setText(_translate("MainWindow", "/\\"))
+        self.add_min.setText(_translate("MainWindow", "/\\"))
+        self.add_10sec.setText(_translate("MainWindow", "/\\"))
+        self.add_sec.setText(_translate("MainWindow", "/\\"))
+        self.dec_10min.setText(_translate("MainWindow", "\\/"))
+        self.dec_min.setText(_translate("MainWindow", "\\/"))
+        self.dec_10sec.setText(_translate("MainWindow", "\\/"))
+        self.dec_sec.setText(_translate("MainWindow", "\\/"))
+        self.button_timer.setText(_translate("MainWindow", "Старт"))
