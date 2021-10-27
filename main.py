@@ -12,6 +12,7 @@ class ClockUI(QtWidgets.QMainWindow, MainWindow):
     clock_timer: QTimer
     stopwatch_timer: QTimer
     stopwatch_time: float
+    stopwatch_laps: int = 0
     timer_timer: QTimer
     timer_time: int
     timer_progress_list: tuple
@@ -49,6 +50,8 @@ class ClockUI(QtWidgets.QMainWindow, MainWindow):
 
         # Set buttons
         self.button_stopwatch.clicked.connect(self.start_stopwatch)
+        self.button_stopwatch_rec.clicked.connect(self.add_rec_stopwatch)
+        self.button_stat_reset.clicked.connect(self.reset_rec_stopwatch)
 
     def start_stopwatch(self):
         if self.button_stopwatch.text() == "Старт":
@@ -70,11 +73,26 @@ class ClockUI(QtWidgets.QMainWindow, MainWindow):
         str_current_time = time.strftime(
             "%M:%S:", time.gmtime(current_time - self.stopwatch_time)
         )
-        print(current_time)
-        print(int(current_time*100))
+
         self.LCD_stopwatch.display(
             f"{str_current_time}{int(current_time*100)%100:02d}"
         )
+
+    def add_rec_stopwatch(self):
+        self.stopwatch_laps += 1
+        current_time: float = time.monotonic()
+
+        str_current_time = time.strftime(
+            "%M:%S:", time.gmtime(current_time - self.stopwatch_time)
+        )
+
+        self.stopwatch_stat.append(
+            f"Круг {self.stopwatch_laps}: {str_current_time}{int(current_time*100)%100:02d}"
+        )
+
+    def reset_rec_stopwatch(self):
+        self.stopwatch_stat.setText("")
+        self.stopwatch_laps = 0
 
 
 if __name__ == "__main__":
