@@ -50,6 +50,7 @@ class ClockUI(QtWidgets.QMainWindow, MainWindow):
         # Set buttons
         self.button_stopwatch.clicked.connect(self.start_stopwatch)
         self.button_stopwatch_rec.clicked.connect(self.add_rec_stopwatch)
+        self.button_stopwatch_rec.setEnabled(False)
         self.button_stat_reset.clicked.connect(self.reset_rec_stopwatch)
 
     def start_stopwatch(self):
@@ -57,9 +58,11 @@ class ClockUI(QtWidgets.QMainWindow, MainWindow):
             self.button_stopwatch.setText("Стоп")
             self.stopwatch_time = time.monotonic()
             self.stopwatch_timer.start()
+            self.button_stopwatch_rec.setEnabled(True)
         else:
             self.button_stopwatch.setText("Старт")
             self.stopwatch_timer.stop()
+            self.button_stopwatch_rec.setEnabled(False)
 
     def update_clock(self):
         current_time = QtCore.QTime.currentTime()
