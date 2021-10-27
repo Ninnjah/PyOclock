@@ -127,6 +127,10 @@ class Ui_MainWindow(object):
         self.button_stopwatch.setMinimumSize(QtCore.QSize(171, 21))
         self.button_stopwatch.setObjectName("button_stopwatch")
         self.verticalLayout_4.addWidget(self.button_stopwatch)
+        self.button_stopwatch_rec = QtWidgets.QPushButton(self.centralwidget)
+        self.button_stopwatch_rec.setMinimumSize(QtCore.QSize(171, 21))
+        self.button_stopwatch_rec.setObjectName("button_stopwatch_rec")
+        self.verticalLayout_4.addWidget(self.button_stopwatch_rec)
         self.stopwatch_stat = QtWidgets.QTextEdit(self.centralwidget)
         font = QtGui.QFont()
         font.setFamily("Consolas")
@@ -310,6 +314,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "Секундомер"))
         self.button_stopwatch.setText(_translate("MainWindow", "Старт"))
+        self.button_stopwatch_rec.setText(_translate("MainWindow", "Круг"))
         self.stopwatch_stat.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
