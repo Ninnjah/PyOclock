@@ -1,9 +1,8 @@
 import sys
 import time
-from typing import Tuple
 
 from PyQt5 import QtWidgets, QtCore
-from PyQt5.Qt import QTimer, QProgressBar
+from PyQt5.Qt import QTimer
 
 from ui.main_ui import Ui_MainWindow as MainWindow
 
