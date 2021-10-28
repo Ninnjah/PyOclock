@@ -13,7 +13,7 @@ class ClockUI(QtWidgets.QMainWindow, MainWindow):
     stopwatch_time: float
     stopwatch_laps: int = 0
     timer_timer: QTimer
-    timer_time: int
+    timer_time: int = 0
     timer_progress_list: tuple
 
     def __init__(self, parent=None):
@@ -47,11 +47,26 @@ class ClockUI(QtWidgets.QMainWindow, MainWindow):
         self.stopwatch_timer.setInterval(1)
         self.stopwatch_timer.timeout.connect(self.update_stopwatch)
 
+        # Set timer timer
+        self.timer_timer = QTimer(self)
+        self.timer_timer.setInterval(1000)
+        self.timer_timer.timeout.connect(self.update_timer)
+
         # Set buttons
         self.button_stopwatch.clicked.connect(self.start_stopwatch)
         self.button_stopwatch_rec.clicked.connect(self.add_rec_stopwatch)
         self.button_stopwatch_rec.setEnabled(False)
         self.button_stat_reset.clicked.connect(self.reset_rec_stopwatch)
+        self.button_timer.clicked.connect(self.start_timer)
+        # timer time button set
+        self.add_10min.clicked.connect(lambda: self.timer_time_set(600))
+        self.add_min.clicked.connect(lambda: self.timer_time_set(60))
+        self.add_10sec.clicked.connect(lambda: self.timer_time_set(10))
+        self.add_sec.clicked.connect(lambda: self.timer_time_set(1))
+        self.dec_10min.clicked.connect(lambda: self.timer_time_set(-600))
+        self.dec_min.clicked.connect(lambda: self.timer_time_set(-60))
+        self.dec_10sec.clicked.connect(lambda: self.timer_time_set(-10))
+        self.dec_sec.clicked.connect(lambda: self.timer_time_set(-1))
 
     def start_stopwatch(self):
         if self.button_stopwatch.text() == "Старт":
@@ -63,6 +78,14 @@ class ClockUI(QtWidgets.QMainWindow, MainWindow):
             self.button_stopwatch.setText("Старт")
             self.stopwatch_timer.stop()
             self.button_stopwatch_rec.setEnabled(False)
+
+    def start_timer(self):
+        if self.button_timer.text() == "Старт":
+            self.button_timer.setText("Стоп")
+            self.timer_timer.start()
+        else:
+            self.button_timer.setText("Старт")
+            self.timer_timer.stop()
 
     def update_clock(self):
         current_time = QtCore.QTime.currentTime()
@@ -80,6 +103,19 @@ class ClockUI(QtWidgets.QMainWindow, MainWindow):
             f"{str_current_time}{int(current_time*100)%100:02d}"
         )
 
+    def update_timer(self):
+        self.timer_time -= 1
+
+        if self.timer_time <= 0:
+            str_current_time = "S70P"
+
+        else:
+            str_current_time = time.strftime(
+                "%M:%S:", time.gmtime(self.timer_time)
+            )
+
+        self.LCD_timer.display(str_current_time)
+
     def add_rec_stopwatch(self):
         self.stopwatch_laps += 1
         current_time: float = time.monotonic()
@@ -95,6 +131,19 @@ class ClockUI(QtWidgets.QMainWindow, MainWindow):
     def reset_rec_stopwatch(self):
         self.stopwatch_stat.setText("")
         self.stopwatch_laps = 0
+
+    def timer_time_set(self, secs: int):
+        self.timer_time += secs
+        if self.timer_time < 0:
+            self.timer_time = 0
+        elif self.timer_time > 3599:
+            self.timer_time = 3599
+
+        print(self.timer_time)
+        str_current_time = time.strftime(
+            "%M:%S:", time.gmtime(self.timer_time)
+        )
+        self.LCD_timer.display(str_current_time)
 
 
 if __name__ == "__main__":
