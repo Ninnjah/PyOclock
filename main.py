@@ -116,6 +116,8 @@ class ClockUI(QtWidgets.QMainWindow, MainWindow):
 
         if self.timer_time <= 0:
             str_current_time: str = "S70P"
+            self.timer_time = 0
+            self.timer_timer.stop()
 
         else:
             str_current_time: str = time.strftime(
