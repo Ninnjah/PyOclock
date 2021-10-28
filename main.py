@@ -85,6 +85,8 @@ class ClockUI(QtWidgets.QMainWindow, MainWindow):
     def start_timer(self) -> None:
         """Toggle timer timer"""
         if self.button_timer.text() == "Старт":
+            for bar in self.timer_progress_list:
+                bar.setMaximum(self.timer_time)
             self.button_timer.setText("Стоп")
             self.timer_timer.start()
 
@@ -123,6 +125,9 @@ class ClockUI(QtWidgets.QMainWindow, MainWindow):
             str_current_time: str = time.strftime(
                 "%M:%S:", time.gmtime(self.timer_time)
             )
+
+        for bar in self.timer_progress_list:
+            bar.setValue(self.timer_time)
 
         self.LCD_timer.display(str_current_time)
 
